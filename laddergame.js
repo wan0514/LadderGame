@@ -27,12 +27,8 @@ function createLadder(num, height) {
 }
 
 function printLadder(ladder) {
-  for (let i = 0; i < ladder.length; i++) {
-    let row = '|';
-    for (let j = 0; j < ladder[i].length; j++) {
-      row += ladder[i][j] + '|';
-    }
-    console.log(row);
+  for (const row of ladder) {
+    console.log(`|${row.join('|')}|`);
   }
 }
 
