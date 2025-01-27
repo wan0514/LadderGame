@@ -3,9 +3,37 @@ const { argv } = require('node:process');
 const args = argv.slice(2);
 const num = parseInt(args[0]);
 
-if (num < 2 || num > 8) {
-  console.log('2명 이상 8명 이하의 숫자를 입력하세요.');
-  return;
+const MIN_PLAYERS = 2;
+const MAX_PLAYERS = 8;
+
+if (isNaN(num) || num < MIN_PLAYERS || num > MAX_PLAYERS) {
+  console.log(
+    `${MIN_PLAYERS}명 이상 ${MAX_PLAYERS}명 이하의 숫자를 입력하세요.`
+  );
+  process.exit(1);
 } else {
   console.log(`사다리 인원은 ${num}명 입니다.`);
 }
+
+function getRandomBoolean() {
+  return Math.random() < 0.5;
+}
+
+function createLadder(num, height) {
+  const widthNumber = num - 1;
+  return Array.from({ length: height }, () =>
+    Array.from({ length: widthNumber }, () => (getRandomBoolean() ? '-' : ' '))
+  );
+}
+
+function printLadder(ladder) {
+  for (let i = 0; i < ladder.length; i++) {
+    let row = '|';
+    for (let j = 0; j < ladder[i].length; j++) {
+      row += ladder[i][j] + '|';
+    }
+    console.log(row);
+  }
+}
+
+printLadder(createLadder(4, 5));
